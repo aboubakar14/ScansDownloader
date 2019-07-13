@@ -1,19 +1,21 @@
 import os
 import subprocess
-from selenium import webdriver
 
 
 class Fanfox():
     """ Fanfox scan downloader. """
 
-    def __init__(self, browser, link_root, target=None):
+    def __init__(self, browser, starting_url, target_url=None, dest=None):
         self.browser = browser
         # the path to save the downloaded scan
-        self.current_path = link_root
+        self.current_path = starting_url
         self.current_url = browser.current_url
         self.previous_url = None
-        # the target url
-        self.target = target
+        # the target url is set, the downloader
+        # will download from starting_url url to target url
+        self.target = target_url
+        # destination folder
+        self.dest = dest
 
     def create_folder(self, link):
         """ This method creates a folder (if not exist) with the given Fanfox url.
@@ -28,7 +30,9 @@ class Fanfox():
        `path` with be `manga_name/volume/chapter_num`
 
         """
-        self.current_path = '/'.join(link.split("manga")[1].split('/')[1:-1])
+        self.current_path = os.path.join(*(link.split("manga")[1].split('/')[1:-1]))
+        if self.dest:
+            self.current_path = os.path.join(self.dest, self.current_path)
         if not os.path.exists(self.current_path):
             os.makedirs(self.current_path)
         return self.current_path
@@ -42,12 +46,12 @@ class Fanfox():
 
         # If self.current_url == self.previous_url -> its the last page
         # If self.current_url == target -> target url reached so we stop
-        while self.current_url != self.previous_url or self.current_url != self.target:
+        while self.current_url != self.previous_url and self.current_url != self.target:
             active_page = self.browser.find_elements_by_xpath('.//a[@class="active"]')
             # get the image
             image = self.browser.find_element_by_class_name("reader-main-img")
             new_image_name = active_page[0].get_attribute("innerHTML") + ".jpg"
-            downloaded = self.current_path + "/" + new_image_name
+            downloaded = os.path.join(self.current_path, new_image_name)
             # download the image
             subprocess.run(["curl",
                             "--silent",
@@ -61,3 +65,7 @@ class Fanfox():
             image.click()
             self.current_url = self.browser.current_url
             self.current_path = self.create_folder(self.browser.current_url)
+
+
+def factory(browser, starting_url, target_url=None, dest=None):
+    return Fanfox(browser, starting_url, target_url, dest)
