@@ -1,8 +1,10 @@
 import os
 import subprocess
 
+from .base import Base
 
-class Fanfox():
+
+class Fanfox(Base):
     """ Fanfox scan downloader. """
 
     def __init__(self, browser, starting_url, target_url=None, dest=None):

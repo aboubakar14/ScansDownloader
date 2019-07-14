@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 import argparse
 import importlib
 import os
@@ -9,7 +11,7 @@ def parser():
     parser.add_argument("module", help="Module to use")
     parser.add_argument("start", help="Url to start downloading")
     parser.add_argument("-t", "--target", required=False,
-                        help="Url to stop downloading (url is not included)." +
+                        help="Url to stop downloading (url not included). " +
                         "If not defined, it will stop when it can not download anymore.")
     parser.add_argument("-d", "--dest", required=False,
                         help="Destination folder. If not set it will " +
