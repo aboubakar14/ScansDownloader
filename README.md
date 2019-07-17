@@ -1,12 +1,12 @@
 ScansDownloader
 
 
-This project goal is to download easily scans of manga from web sites.
+This (small) project goal is to download easily scans of manga from web sites.
 For instance, it will download each scan from a given url and put them correctly in the right folder.
 
 # Requirements
 
-You will need python3, pipenv as well as a browser driver to use ScansDownloader
+You will need python3, pipenv and a browser driver to use ScansDownloader
 
 # ScanDownloader
 
@@ -27,6 +27,7 @@ Currently ScansDownloader handles only Chrome & Firefox drivers.
 ### Links
 
 Chrome drivers: https://sites.google.com/a/chromium.org/chromedriver/downloads
+
 Firefox drivers: https://github.com/mozilla/geckodriver/releases
 
 # Installation
@@ -56,9 +57,11 @@ Well just launch `python3 scansdownloader.py -h` and read :)
 
 ## Drivers
 
-You have to define your Chrome (or Firefox) driver as a environment variable.
-The driver for Chrome must be define in the variable CHROME_DRIVER.
-The driver for Firefox must be define in the variable FIREFOX_DRIVER.
+You have to define your Chrome (or Firefox) driver as an environment variable.
+
+The driver for Chrome must be defined in the variable CHROME_DRIVER.
+
+The driver for Firefox must be defined in the variable FIREFOX_DRIVER.
 
 The given path must be an absolute path.
 
@@ -71,7 +74,8 @@ If you define both, Chrome will be priorized
 
 ### fanfox
 
-The module name is `fanfox`. The url should be a scan page directly
+The module name is `fanfox`. The url should be a scan page directly.
+
 `CHROME_DRIVER=/absolute/path/to/driver python3 scans_downloader.py fanfox http://fanfox.net/manga/one_piece/vTBD/c947/1.html`
 
 # For developpers
@@ -80,12 +84,13 @@ If you are contributing, thanks !
 
 ## Modules
 
-If you want to develop your own module, please follow the several rules:
+If you want to develop your own module, please follow this several rules:
 - Make your module inherit from the base class (you will have to write the download() method)
 - Make sure your class handles the TARGET and the DESTINATION options, in the same way as fanfox
 - Define the factory() method (outside the class), it is useful for the main for instantiating your module dynamically.
 
 Basically if you create your own module, you just have to create your_module.py in the modules folder.
+
 Then if you want to test, it will be `̀python3 scans_downloader.py your_module START`
 
 Please look at the fanfox module if you want an example.
