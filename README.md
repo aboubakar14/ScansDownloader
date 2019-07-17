@@ -1,6 +1,5 @@
-================
 ScansDownloader
-================
+
 
 This project goal is to download easily scans of manga from web sites.
 For instance, it will download each scan from a given url and put them correctly in the right folder.
@@ -21,11 +20,9 @@ Currently there is only one module avalaible:
 
 ## Drivers
 
-Drivers are used to navigate through the web site.
-In the project, there is a default browser driver which is for Chrome v75
-If you are using another version or another browser, you will need to download its driver.
+Drivers are used to navigate through the web site, you will need to download your browser driver.
 
-You can add drivers in the drivers folder and uses the -dn option to indicate which driver you want to use  (cf: Driver Usage).
+Currently ScansDownloader handles only Chrome & Firefox drivers.
 
 ### Links
 
@@ -50,7 +47,7 @@ All the following commands are done after a `pipenv shell` or while using `pipen
 
 - `python3 scansdownloader.py -h` print the help
 
-- `python3 scansdownloader.py MODULE START` will download scans from the web site associated to the module
+- `CHROME_DRIVER=/absolute/path/to/driver python3 scansdownloader.py MODULE START` will download scans from the web site associated to the module
   and will begin the downloading from START until there is nothing more to download
 
 ## Options usage
@@ -59,19 +56,23 @@ Well just launch `python3 scansdownloader.py -h` and read :)
 
 ## Drivers
 
-There are several ways to define which driver to use:
-- The default (if nothing is specified) will take the Chrome driver that is in the drivers folder
-- The command line option (-dn, --driver_name, DRIVER_NAME) search the given driver in the drivers folder
-  so you will have to put your driver in this folder.
-- You can also define the driver by setting the environment variable named `BROWSER_PATH .
-  This way, it will take the driver located in the environment variable.
-  ex 1: `BROWSER_PATH=/tmp/tests/firefoxV42 python3 scans_downloader.py MODULE START`
-  ex 2: do `export BROWSER_PATH=/tmp/tests/firefoxV42` then `python3 scans_downloader.py MODULE START`
+You have to define your Chrome (or Firefox) driver as a environment variable.
+The driver for Chrome must be define in the variable CHROME_DRIVER.
+The driver for Firefox must be define in the variable FIREFOX_DRIVER.
+
+The given path must be an absolute path.
+
+For instance:
+  - `CHROME_DRIVER=/absolute/path/to/driver python3 scans_downloader.py MODULE START`
+
+If you define both, Chrome will be priorized
 
 ## Modules usage
 
 ### fanfox
-`python3 scans_downloader.py fanfox http://fanfox.net/manga/one_piece/vTBD/c947/1.html`
+
+The module name is `fanfox`. The url should be a scan page directly
+`CHROME_DRIVER=/absolute/path/to/driver python3 scans_downloader.py fanfox http://fanfox.net/manga/one_piece/vTBD/c947/1.html`
 
 # For developpers
 
@@ -85,7 +86,7 @@ If you want to develop your own module, please follow the several rules:
 - Define the factory() method (outside the class), it is useful for the main for instantiating your module dynamically.
 
 Basically if you create your own module, you just have to create your_module.py in the modules folder.
-Then if you want to test, it will be `̀python3 scans_downloader.py your_module START
+Then if you want to test, it will be `̀python3 scans_downloader.py your_module START`
 
 Please look at the fanfox module if you want an example.
 
