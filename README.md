@@ -15,8 +15,10 @@ It uses Selenium for browsing on the web, and thats why you will need drivers
 It works with modules, each module correspond to the way of downloading scans from a specific web site.
 
 ## Modules
-Currently there is only one module avalaible:
+Currently there are 2 modules avalaible:
    - fanfox (http://fanfox.net)
+   - lelscanv (http://lelscanv.com)
+
 
 ## Drivers
 
@@ -77,6 +79,13 @@ If you define both, Chrome will be priorized
 The module name is `fanfox`. The url should be a scan page directly.
 
 `CHROME_DRIVER=/absolute/path/to/driver python3 scans_downloader.py fanfox http://fanfox.net/manga/one_piece/vTBD/c947/1.html`
+
+### lelscanv
+
+The module name is `lelscanv`. The url should be a scan page directly.
+
+`CHROME_DRIVER=/absolute/path/to/driver python3 scans_downloader.py lelscanv http://lelscanv.com/scan-one-piece/877/2
+
 
 # For developpers
 
