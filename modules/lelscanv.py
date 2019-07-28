@@ -33,7 +33,11 @@ class Lelscanv(Base):
        `path` with be `manga_name/volume/chapter_num`
 
         """
-        self.current_path = os.path.join(*(link.split('/')[3:-1]))
+        split = link.split('/')
+        if len(split) == 5:
+            self.current_path = os.path.join(*(split[3:]))
+        else:
+            self.current_path = os.path.join(*(split[3:-1]))
         if self.dest:
             self.current_path = os.path.join(self.dest, self.current_path)
         if not os.path.exists(self.current_path):

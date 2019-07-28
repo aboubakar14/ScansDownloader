@@ -24,11 +24,13 @@ Currently there are 2 modules avalaible:
 
 Drivers are used to navigate through the web site, you will need to download your browser driver.
 
-Currently ScansDownloader handles only Chrome & Firefox drivers.
+Currently ScansDownloader handles only Chrome/Chromium & Firefox drivers.
 
 ### Links
 
-Chrome drivers: https://sites.google.com/a/chromium.org/chromedriver/downloads
+Chrome/chromium drivers:
+       - https://sites.google.com/a/chromium.org/chromedriver/downloads
+       - apt install chromium-chromedriver
 
 Firefox drivers: https://github.com/mozilla/geckodriver/releases
 
