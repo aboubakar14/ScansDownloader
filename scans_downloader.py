@@ -44,8 +44,8 @@ if __name__ == "__main__":
             downloader.download()
         except selenium_common.exceptions.InvalidArgumentException:
             print("The given url is not accessible.")
-        except selenium_common.exceptions.WebDriverException:
-            print("Browser driver is not correct.")
+        except selenium_common.exceptions.WebDriverException as e:
+            print(e)
     else:
         print("Browser driver can not be None." +
               "Please define CHROME_DRIVER or FIREFOX_DRIVER")

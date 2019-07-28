@@ -1,9 +1,11 @@
 import os
 import subprocess
-import time
 
 from .base import Base
 
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class Lelscanv(Base):
     """ Lelscanv scan downloader. """
@@ -69,8 +71,14 @@ class Lelscanv(Base):
 
             print("Downloaded: " + downloaded)
             self.previous_url = self.browser.current_url
-            # click on the image to go to the next page
-            image.click()
+            # if we are at the 10th page, we redirect to the 11
+            # I am doing this because there is an annoying pop up on the 10th page.
+            # I replace '/10' to be sure to replace the last occurence
+            # If not on the 10th, click on the image to go to the next page
+            if new_image_name == "10.jpg":
+                self.browser.get(self.current_url.replace('/10', '/11'))
+            else:
+                image.click()
             self.current_url = self.browser.current_url
             self.current_path = self.create_folder(self.browser.current_url)
 
