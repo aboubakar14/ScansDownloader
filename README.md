@@ -52,7 +52,7 @@ All the following commands are done after a `pipenv shell` or while using `pipen
 
 - `python3 scansdownloader.py -h` print the help
 
-- `CHROME_DRIVER=/absolute/path/to/driver python3 scansdownloader.py MODULE START` will download scans from the web site associated to the module
+- `DRIVER=chrome python3 scansdownloader.py MODULE START` will download scans from the web site associated to the module
   and will begin the downloading from START until there is nothing more to download
 
 ## Options usage
@@ -61,18 +61,12 @@ Well just launch `python3 scansdownloader.py -h` and read :)
 
 ## Drivers
 
-You have to define your Chrome (or Firefox) driver as an environment variable.
-
-The driver for Chrome must be defined in the variable CHROME_DRIVER.
-
-The driver for Firefox must be defined in the variable FIREFOX_DRIVER.
-
-The given path must be an absolute path.
+Drivers should be in your PATH with the correct permissions.
+As a suggestion, I would place it in /usr/local/bin.
 
 For instance:
-  - `CHROME_DRIVER=/absolute/path/to/driver python3 scans_downloader.py MODULE START`
-
-If you define both, Chrome will be priorized
+  - `DRIVER=firefox python3 scans_downloader.py MODULE START` mean the Firefox (geckodriver)
+    is located in your PATH
 
 ## Modules usage
 

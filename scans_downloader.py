@@ -5,6 +5,7 @@ import importlib
 import os
 from selenium import webdriver
 from selenium import common as selenium_common
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 
 def parser():
@@ -28,16 +29,14 @@ if __name__ == "__main__":
     link = args.start
     target = args.target
     dest = args.dest
-    chrome_driver = os.getenv('CHROME_DRIVER')
-    firefox_driver = os.getenv('FIREFOX_DRIVER')
-    executable_path = chrome_driver or firefox_driver
+    driver = os.getenv('DRIVER')
 
-    if executable_path:
+    if driver in ['firefox', 'chrome']:
         try:
-            if firefox_driver:
-                browser = webdriver.Firefox(executable_path=executable_path)
-            if chrome_driver:
-                browser = webdriver.Chrome(executable_path=executable_path)
+            if driver == 'firefox':
+                browser = webdriver.Firefox()
+            else:
+                browser = webdriver.Chrome()
             # all modules must be in 'modules' folder
             module = importlib.import_module("modules." + module)
             downloader = module.factory(browser, link, target, dest)
@@ -47,5 +46,5 @@ if __name__ == "__main__":
         except selenium_common.exceptions.WebDriverException as e:
             print(e)
     else:
-        print("Browser driver can not be None." +
-              "Please define CHROME_DRIVER or FIREFOX_DRIVER")
+        print("Browser driver should be 'chrome' or 'firefox' " +
+              "Please define DRIVER correctly.")
