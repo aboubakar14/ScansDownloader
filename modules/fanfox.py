@@ -1,6 +1,10 @@
 import os
 import subprocess
 
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
 from .base import Base
 
 
@@ -49,12 +53,14 @@ class Fanfox(Base):
         # If self.current_url == self.previous_url -> its the last page
         # If self.current_url == target -> target url reached so we stop
         while self.current_url != self.previous_url and self.current_url != self.target:
+            # wait for the image to be loaded
+            WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'reader-main-img')))
             active_page = self.browser.find_elements_by_xpath('.//a[@class="active"]')
             # get the image
             image = self.browser.find_element_by_class_name("reader-main-img")
             new_image_name = active_page[0].get_attribute("innerHTML") + ".jpg"
             downloaded = os.path.join(self.current_path, new_image_name)
-            # download the image
+        # download the image
             subprocess.run(["curl",
                             "--silent",
                             image.get_attribute("src"),
